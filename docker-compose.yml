@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  template:
+    build:
+      context: .
+      dockerfile: toasts/template/Dockerfile
+    volumes:
+      - ./basement/docker-entrypoint.sh:/docker-entrypoint.sh
+      - ./basement/scripts:/scripts
+      - ./toasts/template/repo:/var/www/repo
+    env_file:
+      - ./toasts/template/.env
+    ports:
+      - 4021:3000
+    restart: always
+  
+# volumes:
+  # db_data:
+  # backend_bundle:
