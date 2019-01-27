@@ -1,5 +1,8 @@
 import firebase from 'firebase/app';
+import login from 'actions/login';
+import live from 'actions/live';
 require("firebase/auth");
+require("firebase/firestore");
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -13,3 +16,30 @@ const config = {
 firebase.initializeApp(config);
 
 export default firebase;
+window.firebase = firebase;
+
+export const googleSignin = (dispatch) => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then((result) => {
+    dispatch(login.gSigninSuccess(result));
+  }).catch((error) => {
+    dispatch(login.gSigninFailure(error));
+  });
+};
+
+const db = firebase.firestore();
+window.db = db;
+
+export const createOrUpdate = async (collection, id, attributes) => (
+  db.collection(collection).doc(id).set(attributes)
+);
+
+export const findById = async (collection, id) => (
+  db.collection(collection).doc(id).get()
+);
+
+export const liveIndex = async (dispatch, collection) => (
+  db.collection(collection).onSnapshot((doc) => {
+    dispatch(live.snapshot(doc));
+  })
+);

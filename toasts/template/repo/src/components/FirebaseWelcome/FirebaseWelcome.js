@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo-built_black.svg';
 import styles from './FirebaseWelcome.module.sass';
+import UsersTable from './UsersTable/UsersTable';
 
 export default ({ login: { result: { user: { email, photoURL, displayName }}} }) => (
   <div className={styles.app}>
@@ -16,6 +17,7 @@ export default ({ login: { result: { user: { email, photoURL, displayName }}} })
             </div>
         </div>
       </div>
+      <UsersTable user={{ email, photoURL, displayName }}/>
     </header>
   </div>
 );

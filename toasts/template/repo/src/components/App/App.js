@@ -1,20 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import firebase from '../../firebase';
-import login from 'actions/login';
+import { googleSignin } from '../../firebase';
 import ReactWelcome from 'components/ReactWelcome/ReactWelcome';
 import FirebaseWelcome from 'components/FirebaseWelcome/FirebaseWelcome';
-
-window.firebase = firebase;
-
-const googleSignin = (dispatch) => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).then((result) => {
-    dispatch(login.gSigninSuccess(result));
-  }).catch((error) => {
-    dispatch(login.gSigninFailure(error));
-  });
-};
 
 class App extends Component {
   constructor(props) {
@@ -29,7 +17,6 @@ class App extends Component {
 
   render() {
     const { login } = this.props;
-    window.login = login;
 
     return (
       <div>
