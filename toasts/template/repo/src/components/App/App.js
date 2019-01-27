@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import logo from './logo.svg';
-import './App.css';
-import firebase from '../firebase';
+import firebase from '../../firebase';
 import login from 'actions/login';
+import ReactWelcome from 'components/ReactWelcome/ReactWelcome';
+import FirebaseWelcome from 'components/FirebaseWelcome/FirebaseWelcome';
 
 window.firebase = firebase;
 
@@ -28,21 +28,17 @@ class App extends Component {
   }
 
   render() {
+    const { login } = this.props;
+    window.login = login;
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="/"
-            onClick={this.onClick}
-          >
-            Or auth via Google account instead
-          </a>
-        </header>
+      <div>
+        {
+          !login.result && <ReactWelcome onClick={this.onClick} />
+        }
+        {
+          login.result && <FirebaseWelcome login={login} />
+        }
       </div>
     );
   }

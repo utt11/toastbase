@@ -4,12 +4,12 @@ export default function login(state = {}, action) {
   switch (action.type) {
     case LOGIN_ACTIONS.G_SIGNIN_SUCCESS:
       return {
-        ...state,
-        result: action.payload.result
+        result: action.payload.result,
+        error: null
       }
     case LOGIN_ACTIONS.G_SIGNIN_FAILURE:
       return {
-        ...state,
+        result: null,
         error: action.payload.error
       }
       default:
