@@ -1,5 +1,5 @@
 if [[ -z "${NAME}" ]]; then
-    echo "NO NAME provided"
+    echo "No NAME provided"
     exit 1
 fi
 

@@ -5,5 +5,6 @@ firebase login --no-localhost
 
 cd /var/www/repo
 
+yarn
 yarn build
 firebase deploy

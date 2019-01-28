@@ -9,7 +9,7 @@ import logo from 'components/FirebaseWelcome/logo-built_black.svg';
 
 ReactDOM.render(
   <Provider store={store}>
-    <img rel="preload" src={logo} as="image" style={{display: "none"}} />
+    <img rel="preload" src={logo} as="image" style={{display: "none"}} alt="logo"/>
     <App />
   </Provider>,
   document.getElementById('root'));
