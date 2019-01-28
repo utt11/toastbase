@@ -52,4 +52,10 @@ REACT_APP_SENDER_ID=${SENDER_ID}"
 
 echo "${DOT_ENV}" > toasts/${NAME}/.env
 
+FIREBASE_RC="{
+  \"projects\": {
+    \"default\": \"${PROJECT_ID}\"
+  }
+}"
+
 docker-compose build
