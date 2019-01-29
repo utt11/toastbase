@@ -58,4 +58,6 @@ FIREBASE_RC="{
   }
 }"
 
+echo "${FIREBASE_RC}" >> toasts/${NAME}/.firebaserc
+
 docker-compose build
