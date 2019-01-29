@@ -1,0 +1,26 @@
+html {
+  height: 100%;
+  position: relative;
+  background: black;
+}
+
+@font-face {
+  font-family: 'PressStart2P';
+  src: local('PressStart2P');
+  src: url(./PressStart2P.woff) format('woff');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'PressStart2P';
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
