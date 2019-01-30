@@ -1,2 +1,49 @@
 .wall
-  position: relative
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  top: 0
+  background: url('./wall.png')
+  background-size: contain
+  transition: all 10s
+  transform: translate(100%, 0)
+
+.wallShown
+  transform: translate(0, 0)
+
+.punish
+  position: absolute
+  width: 50%
+  left: 25%
+  top: 15%
+
+.name
+  font-style: italic
+  color: #41bdfc
+  position: absolute
+  top: 34%
+  font-size: 100px
+  left: 0
+  right: 0
+  text-align: center
+
+.bully
+  position: absolute
+  bottom: 0
+  width: 36%
+  left: 32%
+
+.avatar
+  background: url('./whip.png')
+  transition: opacity 0.5s ease-in-out
+  opacity: 0
+  position: absolute
+  top: 37%
+  left: 37%
+  width: 25%
+  padding: 0 0 25% 0
+  background-size: contain
+
+.avatarShown
+  opacity: 1
