@@ -7,14 +7,16 @@ import { STATUSES } from 'constants/game';
 import styles from './Level1.module.sass';
 import AnimatedTitle from 'components/shared/AnimatedTitle/AnimatedTitle';
 import config from 'config';
-import punish from 'components/shared/images/punish.png';
 
-const bullyPhrase = "Well, I know that I can't behave myself, but I think you are too unimportant to spend my time on teaching you, you know. So I won't take a fight.";
-const tipPhrase = "DO NOT LET EM ESCAPE THE FIGHT!";
+const introBullyPhrase = "Well, I know that I can't behave myself, but I think you are too unimportant to spend my time on teaching you, you know. So I won't take a fight.";
+const introTipPhrase = "DO NOT LET EM ESCAPE THE FIGHT!";
+
+const afterBullyPhrase = "I admit my behaviour was unsatisfactory. I will try to be friendlier. I'm sorry. Be friendlier!";
+const afterTipPhrase = `YOU HAVE CONTRIBUTED TO GOOD BEHAVIOUR OF ${config.name.toUpperCase()}`
 
 const bottomPercentages = [4, 24, 45, 66, 86];
 const leftPercentages = [1, 16, 31, 46, 61, 76, 92];
-const punishCount = 5;
+const punishCount = 1;
 
 class Level1 extends Component {
   constructor(props) {
@@ -90,19 +92,43 @@ class Level1 extends Component {
     newPunishes[left] = true
     this.setState({ left: left - 1, current: current + 1, punishes: newPunishes }, () => {
       if (this.state.left === 0) {
-        this.setState({ xC: null, yC: null, showField: 2 }, () => {
-          setTimeout(() => {
-            this.props.dispatch(gameActions.setStatus(STATUSES.WON));
-          }, 3000);
-        })
+        this.afterWin();
       } else {
         this.setCoord();
       }
     });
   }
 
+  afterWin() {
+    this.setState({ xC: null, yC: null, showField: 2 }, () => {
+      setTimeout(() => {
+        this.setState({ stage: 2 }, () => {
+          setTimeout(() => {
+            this.setState({ showAfterWall: 1 }, () => {
+              setTimeout(() => {
+                this.setState({ afterBullySpeaking: 1 }, () => {
+                  setTimeout(() => {
+                    this.setState({ afterBullySpeaking: 2 }, () => {
+                      setTimeout(() => {
+                        this.setState({ showAfterWall: 2, afterBullySpeaking: 0 }, () => {
+                          setTimeout(() => {
+                            this.props.dispatch(gameActions.setStatus(STATUSES.WON));
+                          }, 2000);
+                        });
+                      }, 10000);
+                    });
+                  }, 15000);
+                });
+              }, 9000);
+            });
+          }, 1000);  
+        });
+      }, 1000);
+    })
+  }
+
   render() {
-    const { stage, showIntroWall, introBullySpeaking, showField, left, xC, yC } = this.state;
+    const { stage, showIntroWall, introBullySpeaking, showField, left, xC, yC, showAfterWall, afterBullySpeaking } = this.state;
     const introWallClass = classnames(styles.introWall,
       {
         [styles.introWallShown]: showIntroWall === 1,
@@ -119,6 +145,16 @@ class Level1 extends Component {
         [styles.fieldHideAgain]: showField === 2
       });
 
+    const afterWallClass = classnames(styles.introWall,
+      {
+        [styles.introWallShown]: showAfterWall === 1,
+        [styles.introWallHideAgain]: showAfterWall === 2
+      });
+    const afterBullyClass = classnames(styles.introBully,
+      {
+        [styles.speaking]: afterBullySpeaking === 1
+      });
+
     return (
       <div>
         { stage === 0 && (
@@ -127,8 +163,8 @@ class Level1 extends Component {
                 <img className={introBullyClass} src={'/images/homescreen512.png'}/>
               </div>
               <div className={styles.introSpeak}>
-                { introBullySpeaking === 1 && <AnimatedTitle text={bullyPhrase} type="bubble" /> }
-                { introBullySpeaking === 2 && <AnimatedTitle text={tipPhrase} /> }
+                { introBullySpeaking === 1 && <AnimatedTitle text={introBullyPhrase} type="bubble" /> }
+                { introBullySpeaking === 2 && <AnimatedTitle text={introTipPhrase} /> }
               </div>
             </div>
         )}
@@ -139,6 +175,17 @@ class Level1 extends Component {
               </div>
               { xC && yC && 
                 <img onClick={this.punish} className={styles.fieldBully} style={{left: `${xC}%`, bottom: `${yC}%` }} src={'/images/homescreen64.png'}/> }
+            </div>
+        )}
+        { stage === 2 && (
+            <div className={afterWallClass}>
+              <div className={styles.introBullyContainer}>
+                <img className={afterBullyClass} src={'/images/homescreen512.png'}/>
+              </div>
+              <div className={styles.introSpeak}>
+                { afterBullySpeaking === 1 && <AnimatedTitle text={afterBullyPhrase} type="bubble" /> }
+                { afterBullySpeaking === 2 && <AnimatedTitle text={afterTipPhrase} /> }
+              </div>
             </div>
         )}
       </div>

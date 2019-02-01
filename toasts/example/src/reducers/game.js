@@ -1,7 +1,7 @@
 import { GAME_ACTIONS } from 'constants/actions';
 import { STATUSES } from 'constants/game';
 
-export default function game(state = { status: STATUSES.INTRO, level: 1 }, action) {
+export default function game(state = { status: STATUSES.WON, level: 1 }, action) {
   switch (action.type) {
     case GAME_ACTIONS.SET_LEVEL:
       return {
