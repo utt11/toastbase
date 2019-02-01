@@ -66,11 +66,11 @@ class Intro extends Component {
         { stage === 3 && <AnimatedTitle text={"In a game..."} animated={!showAvatar} /> }
         { stage === 4 && (
           <div className={classnames(styles.wall, { [styles.wallShown]: showWall === 1, [styles.wallHideAgain]: showWall === 2 })}>
-            <img className={styles.punish} src={punish} />
+            <img className={styles.punish} src={punish} alt="punish"/>
             <div className={styles.name}>
               {config.name}
             </div>
-            <img className={styles.bully} src={'/images/homescreen512.png'} onClick={this.startGame}/>
+            <img className={styles.bully} src={'/images/homescreen512.png'} onClick={this.startGame} alt="bully"/>
           </div>
         )}
       </div>

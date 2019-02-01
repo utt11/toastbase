@@ -2,6 +2,8 @@ html {
   height: 100%;
   position: relative;
   background: black;
+  cursor: url('components/shared/images/whip_cursor.png'), auto;
+  user-select: none;
 }
 
 @font-face {

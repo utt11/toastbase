@@ -1,0 +1,113 @@
+.introWall
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  top: 0
+  background: url('./intro_wall.png')
+  background-size: contain
+  transition: all 8s
+  transform: translate(0, 101%)
+
+.introBullyContainer
+  position: absolute
+  width: 20%
+  left: 40%
+  top: 15%
+  border: 10px solid #2b964e
+  background: #020100
+  border-radius: 10px
+  overflow: hidden
+
+.introBully
+  width: 100%
+  transition: all 1s
+
+.speaking
+  animation: speaking 2s linear infinite
+
+.introWallShown
+  transform: translate(0, 0)
+
+.introWallHideAgain
+  transform: translate(0, -101%)
+  transition: all 2s
+
+.introSpeak
+  position: absolute
+  width: 80%
+  height: 40%
+  left: 10%
+  top: 50%
+  border: 10px solid #2b964e
+  background: #020100
+  border-radius: 10px
+  overflow: hidden
+
+.field
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
+  top: 0
+  background: url('./field.png')
+  background-size: contain
+  transition: all 2s
+  transform: translate(0, 101%)
+
+.fieldShown
+  transform: translate(0, 0)
+
+.fieldHideAgain
+  transform: translate(0, -101%)
+
+.fieldBully
+  position: absolute
+  width: 7%
+  left: 1%
+  bottom: 4%
+
+.left
+  color: #2b964e
+  position: absolute
+  right: 0%
+  top: 2%
+  font-size: 130px
+
+@keyframes speaking
+  0%
+    transform: rotate(-5deg)
+  50%
+    transform: rotate(5deg)
+  100%
+    transform: rotate(-5deg)
+
+// .punish
+//   position: absolute
+//   width: 50%
+//   left: 25%
+//   top: 15%
+
+// .name
+//   font-style: italic
+//   color: #41bdfc
+//   position: absolute
+//   top: 34%
+//   font-size: 100px
+//   left: 0
+//   right: 0
+//   text-align: center
+
+// .avatar
+//   background: url('./whip.png')
+//   transition: opacity 0.5s ease-in-out
+//   opacity: 0
+//   position: absolute
+//   top: 37%
+//   left: 37%
+//   width: 25%
+//   padding: 0 0 25% 0
+//   background-size: contain
+
+// .avatarShown
+//   opacity: 1
