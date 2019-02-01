@@ -7,11 +7,16 @@
   background: url('./wall.png')
   background-size: contain
   transition: all 10s
-  transform: translate(100%, 0)
+  transform: translate(101%, 0)
+  cursor: url('../shared/images/whip_cursor.png'), auto
 
 .wallShown
   transform: translate(0, 0)
 
+.wallHideAgain
+  transform: translate(-101%, 0)
+  transition: all 2s
+    
 .punish
   position: absolute
   width: 50%

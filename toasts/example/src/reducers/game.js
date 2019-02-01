@@ -11,7 +11,8 @@ export default function game(state = { status: STATUSES.INTRO, level: 1 }, actio
     case GAME_ACTIONS.SET_STATUS:
       return {
           ...state,
-          status: action.payload.status
+          status: action.payload.status,
+          level: action.payload.status === STATUSES.PLAYING ? 1 : state.level
       }
     default:
   }

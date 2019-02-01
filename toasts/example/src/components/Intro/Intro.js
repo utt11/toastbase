@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
+import gameActions from 'actions/game';
+import { STATUSES } from 'constants/game';
 import styles from './Intro.module.sass';
 import AnimatedTitle from 'components/shared/AnimatedTitle/AnimatedTitle';
 import config from 'config';
@@ -12,8 +15,10 @@ class Intro extends Component {
     this.state = {
       stage: 0,
       showAvatar: false,
-      showWall: false
+      showWall: 0
     };
+
+    this.startGame = this.startGame.bind(this);
   }
 
   componentDidMount() {
@@ -28,18 +33,27 @@ class Intro extends Component {
                     setTimeout(() => {
                       this.setState({ stage: 4 }, () => {
                         setTimeout(() => {
-                          this.setState({ showWall: true });
-                        }, 1000);
+                          this.setState({ showWall: 1 });
+                        }, 3000);
                       })
-                    }, 4000);
+                    }, 6000);
                   });
-                }, 2000);
+                }, 6000);
               });
             }, 1000);
           });
-        }, 4000);
+        }, 6000);
       });
-    }, 5000);
+    }, 6000);
+  }
+
+  startGame() {
+    const { dispatch } = this.props;
+    this.setState({ showWall: 2 }, () => {
+      setTimeout(() => {
+        dispatch(gameActions.setStatus(STATUSES.PLAYING));
+      }, 3000);
+    })
   }
 
   render() {
@@ -51,12 +65,12 @@ class Intro extends Component {
         { stage === 2 && <div className={classnames(styles.avatar, { [styles.avatarShown]: showAvatar })} /> }
         { stage === 3 && <AnimatedTitle text={"In a game..."} animated={!showAvatar} /> }
         { stage === 4 && (
-          <div className={classnames(styles.wall, { [styles.wallShown]: showWall })}>
+          <div className={classnames(styles.wall, { [styles.wallShown]: showWall === 1, [styles.wallHideAgain]: showWall === 2 })}>
             <img className={styles.punish} src={punish} />
             <div className={styles.name}>
               {config.name}
             </div>
-            <img className={styles.bully} src={'/images/homescreen512.png'} />
+            <img className={styles.bully} src={'/images/homescreen512.png'} onClick={this.startGame}/>
           </div>
         )}
       </div>
@@ -64,4 +78,4 @@ class Intro extends Component {
   }
 }
 
-export default Intro;
+export default connect()(Intro);
