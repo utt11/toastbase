@@ -5,11 +5,9 @@ import './index.css';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
-import logo from 'components/FirebaseWelcome/logo-built_black.svg';
 
 ReactDOM.render(
   <Provider store={store}>
-    <img rel="preload" src={logo} as="image" style={{display: "none"}} alt="logo"/>
     <App />
   </Provider>,
   document.getElementById('root'));

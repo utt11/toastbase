@@ -13,15 +13,19 @@ class UsersTable extends Component {
   }
 
   async componentDidMount() {
-    const { user: { email, photoURL, displayName }, dispatch } = this.props;
+    const { dispatch } = this.props;
+    const liveListener = liveIndex(dispatch, "users");
+    this.setState({ liveListener });
+  }
+
+  async increase(user) {
+    const { email, photoURL, displayName } = user;
     let val = 0;
     const doc = await findById("users", email);
     if (doc.exists) {
         val = doc.data().visits;
     }
     createOrUpdate("users", email, { id: email, email, photoURL, displayName, visits: val + 1 });
-    const liveListener = liveIndex(dispatch, "users");
-    this.setState({ liveListener });
   }
 
   componentWillUnmount() {
@@ -39,17 +43,17 @@ class UsersTable extends Component {
     }
     return (
       <div className={styles.root}>
-          {
-              users.map((user) => (
-                  <p key={user.email}>
-                    {user.email}
-                    {' '}
-                    {user.displayName}
-                    {' '}
-                    {user.visits}
-                  </p>
-              ))
-          }
+        {
+          users.map((user) => (
+              <p key={user.email}>
+                {user.email}
+                {' '}
+                {user.displayName}
+                {' '}
+                {user.visits}
+              </p>
+          ))
+        }
       </div>
     );
   }

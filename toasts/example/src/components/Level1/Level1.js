@@ -16,7 +16,7 @@ const afterTipPhrase = `YOU HAVE CONTRIBUTED TO GOOD BEHAVIOUR OF ${config.name.
 
 const bottomPercentages = [4, 24, 45, 66, 86];
 const leftPercentages = [1, 16, 31, 46, 61, 76, 92];
-const punishCount = 1;
+const punishCount = 5;
 
 class Level1 extends Component {
   constructor(props) {
@@ -145,7 +145,7 @@ class Level1 extends Component {
         [styles.fieldHideAgain]: showField === 2
       });
 
-    const afterWallClass = classnames(styles.introWall,
+    const afterWallClass = classnames(styles.afterWall,
       {
         [styles.introWallShown]: showAfterWall === 1,
         [styles.introWallHideAgain]: showAfterWall === 2
@@ -160,7 +160,7 @@ class Level1 extends Component {
         { stage === 0 && (
             <div className={introWallClass}>
               <div className={styles.introBullyContainer}>
-                <img className={introBullyClass} src={'/images/homescreen512.png'}/>
+                <img alt={'stub'} className={introBullyClass} src={'/images/homescreen512.png'}/>
               </div>
               <div className={styles.introSpeak}>
                 { introBullySpeaking === 1 && <AnimatedTitle text={introBullyPhrase} type="bubble" /> }
@@ -174,15 +174,15 @@ class Level1 extends Component {
                 {left}
               </div>
               { xC && yC && 
-                <img onClick={this.punish} className={styles.fieldBully} style={{left: `${xC}%`, bottom: `${yC}%` }} src={'/images/homescreen64.png'}/> }
+                <img alt={'stub'} onClick={this.punish} className={styles.fieldBully} style={{left: `${xC}%`, bottom: `${yC}%` }} src={'/images/homescreen64.png'}/> }
             </div>
         )}
         { stage === 2 && (
             <div className={afterWallClass}>
-              <div className={styles.introBullyContainer}>
-                <img className={afterBullyClass} src={'/images/homescreen512.png'}/>
+              <div className={styles.afterBullyContainer}>
+                <img alt={'stub'} className={afterBullyClass} src={'/images/homescreen512.png'}/>
               </div>
-              <div className={styles.introSpeak}>
+              <div className={styles.afterSpeak}>
                 { afterBullySpeaking === 1 && <AnimatedTitle text={afterBullyPhrase} type="bubble" /> }
                 { afterBullySpeaking === 2 && <AnimatedTitle text={afterTipPhrase} /> }
               </div>
