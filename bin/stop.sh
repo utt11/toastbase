@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ -z "${NAME}" ]]; then
     echo "No NAME provided"
     exit 1
