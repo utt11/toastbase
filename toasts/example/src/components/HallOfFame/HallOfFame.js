@@ -23,7 +23,7 @@ class HallOfFame extends React.Component {
     if (nextProps.login) {
       if (nextProps.login.result) {
         const { user } = nextProps.login.result;
-        const { email, displayName } = user.email;
+        const { email, displayName } = user;
         let val = 0;
         const doc = await findById("users", email);
         if (doc.exists) {
@@ -47,18 +47,19 @@ class HallOfFame extends React.Component {
 
   render() {
     const { stage } = this.state;
+    const { login } = this.props;
+    const user = login && login.result && login.result.user
 
     return (
       <div className={classnames(styles.hallOfFame, { [styles.move]: stage === 1 })}>
         <div className={styles.title}>
-          <AnimatedTitle
-            text={`WHO HAS PUNISHED ${config.name.toUpperCase()}`}
-          />
+          {`WHO HAS PUNISHED ${config.name.toUpperCase()}`}
         </div>
         <div className={styles.bully}>
-          <img src={'/images/homescreen512.png'} className={styles.logo} alt="logo" onClick={this.onClick} />
+          <img src={'/images/homescreen512.png'} className={styles.logo} alt="logo" />
         </div>
-        <UsersTable />
+        { !user && <div className={styles.link} onClick={this.onClick}>{'LOGIN'}</div> }
+        { user && <UsersTable /> }
       </div>
     )
   }

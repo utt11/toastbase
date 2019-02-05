@@ -71,6 +71,7 @@ class Intro extends Component {
               {config.name}
             </div>
             <img className={styles.bully} src={'/images/homescreen512.png'} onClick={this.startGame} alt="bully"/>
+            <div className={styles.button} onClick={this.startGame}>{'START'}</div>
           </div>
         )}
       </div>

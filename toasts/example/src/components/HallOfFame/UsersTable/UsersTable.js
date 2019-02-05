@@ -18,16 +18,6 @@ class UsersTable extends Component {
     this.setState({ liveListener });
   }
 
-  async increase(user) {
-    const { email, photoURL, displayName } = user;
-    let val = 0;
-    const doc = await findById("users", email);
-    if (doc.exists) {
-        val = doc.data().visits;
-    }
-    createOrUpdate("users", email, { id: email, email, photoURL, displayName, visits: val + 1 });
-  }
-
   componentWillUnmount() {
       const { liveListener } = this.state;
       if (liveListener) {
@@ -45,13 +35,13 @@ class UsersTable extends Component {
       <div className={styles.root}>
         {
           users.map((user) => (
-              <p key={user.email}>
-                {user.email}
-                {' '}
-                {user.displayName}
-                {' '}
-                {user.visits}
-              </p>
+            <p key={user.email}>
+              {user.email}
+              {' '}
+              {user.displayName}
+              {' '}
+              {user.visits}
+            </p>
           ))
         }
       </div>
