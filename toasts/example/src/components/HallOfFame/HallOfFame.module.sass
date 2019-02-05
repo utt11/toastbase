@@ -1,3 +1,5 @@
+@import "constants.sass"
+  
 .hallOfFame
   position: absolute
   left: 0
@@ -25,8 +27,14 @@
   font-size: 33px
   font-style: italic
 
+  @media screen and (max-width: $break-small), screen and (max-height: $break-small)
+    font-size: 16px
+
 .link
   position: absolute
   font-size: 32px
   top: 55%
   left: 10%
+
+  @media screen and (max-width: $break-small), screen and (max-height: $break-small)
+    font-size: 16px
