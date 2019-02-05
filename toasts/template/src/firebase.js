@@ -16,7 +16,6 @@ const config = {
 firebase.initializeApp(config);
 
 export default firebase;
-window.firebase = firebase;
 
 export const googleSignin = (dispatch) => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -28,7 +27,6 @@ export const googleSignin = (dispatch) => {
 };
 
 const db = firebase.firestore();
-window.db = db;
 
 export const createOrUpdate = async (collection, id, attributes) => (
   db.collection(collection).doc(id).set(attributes)
