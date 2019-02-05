@@ -1,7 +1,5 @@
 #!/bin/bash
 
-docker-compose build example
-
 echo "I need the firebase credentials"
 
 read -p "Enter API_KEY: " API_KEY
@@ -25,6 +23,11 @@ FIREBASE_RC="{
 }"
 
 echo "${FIREBASE_RC}" >> toasts/${NAME}/.firebaserc
+
+read -e -p "Enter path to a picture of bully: " BULLY_IMAGE_PATH
+
+BULLY_IMAGE_PATH=${BULLY_IMAGE_PATH//'~'/$HOME}
+cp $BULLY_IMAGE_PATH toasts/$NAME/public/images/bully
 
 echo "Okay. Now let's talk about your bully. What's their name?"
 read -p "Enter bully name: " BULLY
@@ -53,12 +56,12 @@ INDEX="<!DOCTYPE html>
     <link rel=\"manifest\" href=\"%PUBLIC_URL%/manifest.json\" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+      It will be replaced with the URL of the \`public\` folder during the build.
+      Only files inside the \`public\` folder can be referenced from the HTML.
 
       Unlike \"/favicon.ico\" or \"favicon.ico\", \"%PUBLIC_URL%/favicon.ico\" will
       work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
+      Learn how to configure a non-root public URL by running \`npm run build\`.
     -->
     <title>Punish ${BULLY}</title>
   </head>
@@ -72,8 +75,8 @@ INDEX="<!DOCTYPE html>
       You can add webfonts, meta tags, or analytics to this file.
       The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
+      To begin the development, run \`npm start\` or \`yarn start\`.
+      To create a production bundle, use \`npm run build\` or \`yarn build\`.
     -->
   </body>
 </html>
@@ -108,19 +111,6 @@ MANIFEST="{
 }"
 
 echo $MANIFEST > toasts/${NAME}/public/manifest.json
-
-read -e -p "Enter path to a picture of bully: " BULLY_IMAGE_PATH
-
-BULLY_IMAGE_PATH=${BULLY_IMAGE_PATH//'~'/$HOME}
-cp $BULLY_IMAGE_PATH toasts/$NAME/public/images/bully
-
-docker-compose up -d $NAME
-docker-compose exec $NAME bash -c "source ~/.profile
-cd /var/www/repo/public/images
-convert -remap Palette_NTSC.png bully -resize 256x256^ -gravity Center -extent 256x256 -scale 200% homescreen512.png
-convert homescreen512.png -resize 192x192 homescreen192.png 
-convert homescreen512.png -resize 64x64 homescreen64.png
-"
 
 echo
 echo "Let's talk about music now."
@@ -157,6 +147,13 @@ done
 rm -f toasts/${NAME}/public/music/theme.mp3
 ln -s "./${MUSIC}" toasts/${NAME}/public/music/theme.mp3
 
-docker-compose exec $NAME bash /scripts/deploy.sh
+docker-compose up -d $NAME
+docker-compose exec $NAME bash -c "source ~/.profile
+cd /var/www/repo/public/images
+convert -remap Palette_NTSC.png bully -resize 256x256^ -gravity Center -extent 256x256 -scale 200% homescreen512.png
+convert homescreen512.png -resize 192x192 homescreen192.png 
+convert homescreen512.png -resize 64x64 homescreen64.png
+"
 
+docker-compose exec $NAME bash /scripts/deploy.sh
 docker-compose stop $NAME
