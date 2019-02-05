@@ -7,4 +7,4 @@ cd /var/www/repo
 
 yarn
 yarn build
-firebase deploy
+firebase deploy --project $PROJECT_ID
