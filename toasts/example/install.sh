@@ -156,4 +156,5 @@ convert homescreen512.png -resize 192x192 homescreen192.png
 convert homescreen512.png -resize 64x64 homescreen64.png
 "
 
-echo "Deployed to https://punish-335f4.firebaseapp.com/"
+docker-compose exec $NAME bash /scripts/deploy.sh
+docker-compose stop $NAME
