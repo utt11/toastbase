@@ -27,3 +27,16 @@ services:
     ports:
       - 4001:3000
     restart: always
+  hackathon:
+    build:
+      context: .
+      dockerfile: toasts/hackathon/Dockerfile
+    volumes:
+      - ./basement/docker-entrypoint.sh:/docker-entrypoint.sh
+      - ./basement/scripts:/scripts
+      - ./toasts/hackathon:/var/www/repo
+    env_file:
+      - ./toasts/hackathon/.env
+    ports:
+      - 4002:3000
+    restart: always
