@@ -1,7 +1,8 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-    <title>Template</title>
+    <title>Mystand First Hackathon</title>
+    <link rel="shortcut icon" type="image/png" href="assets/icon512.png"/>
     <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=9">
     <meta name="format-detection" content="telephone=no">
     <meta name="HandheldFriendly" content="true"/>
@@ -42,5 +43,15 @@
 </head>
 
 <body>
+    <noscript>This website requires JavaScript. To contact us, please send us an email at: <a href="https://mystand.io">mystand.io</a></noscript>
+    <script>
+        // Check that service workers are registered
+        if ('serviceWorker' in navigator) {
+          // Use the window load event to keep the page load performant
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js');
+          });
+        }
+    </script>
 </body>
 </html>

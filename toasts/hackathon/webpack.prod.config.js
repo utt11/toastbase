@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const JavaScriptObfuscator = require('webpack-obfuscator');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/');
 const phaser = path.join(phaserModule, 'build/custom/phaser-arcade-physics.js');
@@ -17,7 +19,7 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve('./dist'),
+        path: path.resolve('./build'),
         publicPath: '/'
     },
     plugins: [
@@ -33,6 +35,25 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './index.html',
             inject: 'body',
+        }),
+        new WorkboxPlugin.GenerateSW(),
+        new WebpackPwaManifest({
+            name: 'Mystand First Hackathon',
+            short_name: 'Mystand First Hackathon',
+            description: 'Mystand First Hackathon',
+            background_color: '#ffffff',
+            theme_color: '#ffffff',
+            crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+            icons: [
+              {
+                src: path.resolve('assets/icon512.png'),
+                sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+              },
+              {
+                src: path.resolve('assets/icon1024.png'),
+                size: '1024x1024' // you can also use the specifications pattern
+              }
+            ]
         })
     ],
     optimization: {
