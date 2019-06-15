@@ -41,6 +41,6 @@ export class Game extends Phaser.State {
         if (this.cursors.right.isDown) {
             this.mushroom.position.x++;
         }
-        Sound.play(1);
+        Sound.play();
     }
 }
