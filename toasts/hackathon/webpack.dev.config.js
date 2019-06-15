@@ -2,6 +2,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TSLintPlugin = require('tslint-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/');
 const phaser = path.join(phaserModule, 'build/custom/phaser-arcade-physics.js');
@@ -27,7 +28,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './index.html',
             inject: 'body'
-        })
+        }),
+        new Dotenv()
     ],
     module: {
         rules: [

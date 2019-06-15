@@ -10,9 +10,12 @@ export class Preload extends Phaser.State {
     public preload(): void {
         // Load awesome fonts
         this.game.load.bitmapFont('font', 'assets/fonts/font.png', 'assets/fonts/font.xml');
+        this.game.load.image('knightHawks', 'assets/fonts/KNIGHT3.png');
 
         // Load sprite
-        this.game.load.image('mushroom', 'assets/sprites/mushroom.png');
+        this.game.load.image('menu', 'assets/sprites/menu.png');
+        this.game.load.image('play-button', 'assets/sprites/play-button.png');
+        this.game.load.image('records-button', 'assets/sprites/records-button.png');
 
         // Initialize Howler
         Sound.load();
@@ -26,7 +29,7 @@ export class Preload extends Phaser.State {
 
     public update(): void {
         if ( (this.ready === true) && (Sound.loaded === true) ) {
-            this.game.state.start('Game');
+            this.game.state.start('Menu');
         }
     }
 

@@ -1,4 +1,5 @@
 export class Config {
-    static gameWidth: number = 800;
-    static gameHeight: number = 480;
+    static gameWidth: number = 768;
+    static gameHeight: number = 512;
+    static recordLimit: number = 10;
 }
