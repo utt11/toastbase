@@ -8,6 +8,7 @@ import {Config} from '../config';
 const { defaultStartCoordX, defaultStartCoordY } = Config;
 
 export class Level {
+    protected levelName: string;
     private game: Game;
     private coordX: number;
     private coordY: number;
@@ -28,9 +29,7 @@ export class Level {
         // we have to enable collision for tiles ( now we will just enable collision for all tiles of our tile set ).
         map.setCollisionBetween(1, 10000);
         const layer = map.createLayer('Ground');
-        layer.debug = true;
         layer.resizeWorld();
-
 
         this.tank = this.game.add.sprite(coordX * 16, coordY * 16, 'tanks');
         this.game.physics.enable(this.tank);
@@ -94,5 +93,9 @@ export class Level {
         this.tank.animations.stop();
         this.tank.body.velocity.x = 0;
         this.tank.body.velocity.y = 0;
+    }
+
+    public getLevelName(): string {
+        return this.levelName;
     }
 }

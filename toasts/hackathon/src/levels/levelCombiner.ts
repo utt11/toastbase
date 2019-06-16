@@ -23,7 +23,7 @@ export class LevelCombiner {
         this.levels = [
             [null, null, null, null, null],
             [null, null, null, null, null],
-            [null, new SimpleLevel(game), new SimpleLevel(game), null, null],
+            [null, new SimpleLevel(game, 'Additional'), new SimpleLevel(game, 'Main'), null, null],
             [null, null, null, null, null],
             [null, null, null, null, null]
         ];
