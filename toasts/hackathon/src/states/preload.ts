@@ -16,6 +16,8 @@ export class Preload extends Phaser.State {
         this.game.load.image('menu', 'assets/sprites/menu.png');
         this.game.load.image('play-button', 'assets/sprites/play-button.png');
         this.game.load.image('records-button', 'assets/sprites/records-button.png');
+        this.game.load.tilemap('tilemap', 'assets/tilemaps/simple-map.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tiles16x16', 'assets/tilemaps/battlecity_general.png');
 
         // Initialize Howler
         Sound.load();
@@ -30,6 +32,7 @@ export class Preload extends Phaser.State {
     public update(): void {
         if ( (this.ready === true) && (Sound.loaded === true) ) {
             this.game.state.start('Menu');
+            Sound.play();
         }
     }
 

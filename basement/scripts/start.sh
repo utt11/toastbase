@@ -5,5 +5,5 @@ firebase login --no-localhost
 
 cd /var/www/repo
 
-yarn
-yarn start
+npm i
+npm start

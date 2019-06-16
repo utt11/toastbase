@@ -1,3 +1,7 @@
+import 'pixi';
+import 'p2';
+import Phaser from 'phaser-ce';
+
 import {Sound} from '../helpers/sound';
 import {Config} from '../config';
 import db from '../firebase';
@@ -23,5 +27,6 @@ export class Hall extends Phaser.State {
 
     public actionOnPlayButton(): void {
         this.game.state.start('Game');
+        Sound.play();
     }
 }

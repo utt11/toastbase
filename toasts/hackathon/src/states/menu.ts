@@ -1,3 +1,7 @@
+import 'pixi';
+import 'p2';
+import Phaser from 'phaser-ce';
+
 import {Sound} from '../helpers/sound';
 
 export class Menu extends Phaser.State {
@@ -9,9 +13,11 @@ export class Menu extends Phaser.State {
 
     public actionOnPlayButton(): void {
         this.game.state.start('Game');
+        Sound.play();
     }
 
     public actionOnRecordButton(): void {
         this.game.state.start('Hall');
+        Sound.play();
     }
 }

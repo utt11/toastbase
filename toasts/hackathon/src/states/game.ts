@@ -1,5 +1,10 @@
+import 'pixi';
+import 'p2';
+import Phaser from 'phaser-ce';
+
 import {Sound} from '../helpers/sound';
 import {Mushroom} from '../prefabs/mushroom';
+import {LevelCombiner} from '../levels/levelCombiner';
 
 export class Game extends Phaser.State {
     private mushroom: Mushroom;
@@ -7,28 +12,25 @@ export class Game extends Phaser.State {
     private text: Phaser.BitmapText;
     private spaceKey: Phaser.Key;
 
+    private levelCombiner: LevelCombiner;
+
     public create(): void {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        this.text = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY + 100, 'font', 'Press Arrows / Space', 15);
-        this.text.x = this.text.x - ~~(this.text.width * 0.5);
+        this.levelCombiner = new LevelCombiner(this);
+        // this.text = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY + 100, 'font', 'Press Arrows / Space', 15);
+        // this.text.x = this.text.x - ~~(this.text.width * 0.5);
 
-        this.mushroom = new Mushroom(this.game, this.game.world.centerX, this.game.world.centerY);
-        this.game.add.existing(this.mushroom);
+        // this.mushroom = new Mushroom(this.game, this.game.world.centerX, this.game.world.centerY);
+        // this.game.add.existing(this.mushroom);
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
-
-        this.spaceKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        this.spaceKey.onDown.add(() => {
-            Sound.play();
-            this.mushroom.x = this.game.world.centerX;
-            this.mushroom.y = this.game.world.centerY;
-        }, this);
 
         (window as any).finish = (deaths: number): void => {
             (window as any).deaths = deaths;
             this.game.state.start('ChooseName');
-        }
+            Sound.play();
+        };
     }
 
     public update(): void {
