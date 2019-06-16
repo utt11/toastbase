@@ -33,7 +33,7 @@ export class LevelCombiner {
         (window as any).levelCombiner = this;
 
         this.chooseWinPlace();
-        this.levels[this.currentLevelX][this.currentLevelY].start();
+        this.currentLevel().start();
     }
 
     private chooseWinPlace(): void {
@@ -57,5 +57,9 @@ export class LevelCombiner {
                 this.winLevelY = _.random(0, Config.levelRowLength - 1);
                 this.winDirection = _.random(1, 4);
             }
+    }
+
+    public currentLevel(): Level {
+        return this.levels[this.currentLevelX][this.currentLevelY];
     }
 }

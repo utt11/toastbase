@@ -18,35 +18,31 @@ export class Game extends Phaser.State {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.levelCombiner = new LevelCombiner(this);
-        // this.text = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY + 100, 'font', 'Press Arrows / Space', 15);
-        // this.text.x = this.text.x - ~~(this.text.width * 0.5);
-
-        // this.mushroom = new Mushroom(this.game, this.game.world.centerX, this.game.world.centerY);
-        // this.game.add.existing(this.mushroom);
-
         this.cursors = this.game.input.keyboard.createCursorKeys();
-
-        (window as any).finish = (deaths: number): void => {
-            (window as any).deaths = deaths;
-            this.game.state.start('ChooseName');
-            Sound.play();
-        };
     }
 
     public update(): void {
         this.game.input.update();
 
         if (this.cursors.down.isDown) {
-            this.mushroom.position.y++;
-        }
+            this.levelCombiner.currentLevel().moveDown();
+        } else
         if (this.cursors.up.isDown) {
-            this.mushroom.position.y--;
-        }
+            this.levelCombiner.currentLevel().moveUp();
+        } else
         if (this.cursors.left.isDown) {
-            this.mushroom.position.x--;
-        }
+            this.levelCombiner.currentLevel().moveLeft();
+        } else
         if (this.cursors.right.isDown) {
-            this.mushroom.position.x++;
+            this.levelCombiner.currentLevel().moveRight();
+        } else {
+            this.levelCombiner.currentLevel().moveStop();
         }
     }
+
+    public finish(deaths: number): void {
+        (window as any).deaths = deaths;
+        this.game.state.start('ChooseName');
+        Sound.play();
+    };
 }

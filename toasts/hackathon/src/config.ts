@@ -3,6 +3,8 @@ export class Config {
     static gameHeight: number = 512;
     static recordLimit: number = 10;
 
+    static tankSpeed: number = 66;
+
     static defaultStartCoordX: number = 12;
     static defaultStartCoordY: number = 13;
 
