@@ -23,7 +23,7 @@ const dy = {
 
 export class LevelCombiner {
     private levels: (Level | null)[][];
-    private game: Game;
+    private gameState: Game;
     private currentLevelX: number;
     private currentLevelY: number;
 
@@ -31,13 +31,13 @@ export class LevelCombiner {
     private winLevelY: number = 0;
     private winDirection: number = 1;
 
-    constructor(game: Game) {
-        this.game = game;
+    constructor(gameState: Game) {
+        this.gameState = gameState;
 
         this.levels = [
             [null, null, null, null, null],
             [null, null, null, null, null],
-            [null, new SimpleLevel(game, 'Additional'), new SimpleLevel(game, 'Main'), null, null],
+            [null, new SimpleLevel(gameState, 'Additional'), new SimpleLevel(gameState, 'Main'), null, null],
             [null, null, null, null, null],
             [null, null, null, null, null]
         ];
@@ -47,7 +47,11 @@ export class LevelCombiner {
         (window as any).levelCombiner = this;
 
         this.chooseWinPlace();
-        this.currentLevel().start();
+        this.currentLevel.start();
+    }
+
+    public debug(): void {
+        this.currentLevel.debug();
     }
 
     private chooseWinPlace(): void {
@@ -59,7 +63,7 @@ export class LevelCombiner {
             }
     }
 
-    public currentLevel(): Level {
+    public get currentLevel(): Level {
         return this.levels[this.currentLevelX][this.currentLevelY];
     }
 
@@ -68,8 +72,8 @@ export class LevelCombiner {
     }
 
     private checkTankPosition(): void {
-        const xCoord = this.currentLevel().getTankPosition().x / 16;
-        const yCoord = this.currentLevel().getTankPosition().y / 16;
+        const xCoord = this.currentLevel.getTankPosition().x / 16;
+        const yCoord = this.currentLevel.getTankPosition().y / 16;
 
         if (15 <= xCoord && xCoord <= 16 && 0 <= yCoord && yCoord <= 1) {
             this.moveLevel(Config.DIRECTIONS.TOP);
@@ -89,13 +93,13 @@ export class LevelCombiner {
     }
 
     private finish(): void {
-        this.game.state.start('ChooseName');
+        this.gameState.state.start('ChooseName');
         Sound.play();
     }
 
     private moveLevel(direction: number): void {
-        const xCoordPrecise = this.currentLevel().getTankPosition().x;
-        const yCoordPrecise = this.currentLevel().getTankPosition().y;
+        const xCoordPrecise = this.currentLevel.getTankPosition().x;
+        const yCoordPrecise = this.currentLevel.getTankPosition().y;
 
         if (this.currentLevelX === this.winLevelX && this.currentLevelY === this.winLevelY
             && this.winDirection === direction) {
@@ -105,7 +109,7 @@ export class LevelCombiner {
         const nextLevelX = this.currentLevelX + dx[direction];
         const nextLevelY = this.currentLevelY + dy[direction];
         if (this.levels[nextLevelX][nextLevelY]) {
-            this.currentLevel().stop();
+            this.currentLevel.stop();
             this.currentLevelX = nextLevelX;
             this.currentLevelY = nextLevelY;
             let nextXCoordPrecise, nextYCoordPrecise;
@@ -117,7 +121,7 @@ export class LevelCombiner {
             //     nextXCoordPrecise = xCoordPrecise;
             //     nextYCoordPrecise = 486 - yCoordPrecise;
             // }
-            this.currentLevel().start();
+            this.currentLevel.start();
         }
     }
 }

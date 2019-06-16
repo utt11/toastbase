@@ -8,7 +8,7 @@ import {Config} from '../config';
 const { defaultStartCoordX, defaultStartCoordY } = Config;
 
 export class Level {
-    private game: Game;
+    private gameState: Game;
     private coordX: number;
     private coordY: number;
     private tank: Phaser.Sprite;
@@ -17,27 +17,33 @@ export class Level {
     protected tilemap: string;
     protected levelName: string;
 
-    constructor(game: Game) {
-        this.game = game;
+    constructor(gameState: Game) {
+        this.gameState = gameState;
     }
 
     public start(coordX: number = defaultStartCoordX, coordY: number = defaultStartCoordY) {
         this.coordX = coordX;
         this.coordY = coordY;
 
-        this.map = this.game.add.tilemap(this.tilemap);
+        this.map = this.gameState.add.tilemap(this.tilemap);
         this.map.addTilesetImage('battlecity', 'tiles16x16');
         // To enable collision between our tank and walls/city
         // we have to enable collision for tiles ( now we will just enable collision for all tiles of our tile set ).
-        this.map.setCollisionBetween(1, 10000);
-        const layer = this.map.createLayer('Ground');
-        layer.resizeWorld();
 
-        this.tank = this.game.add.sprite(coordX * 16, coordY * 16, 'tanks');
-        this.game.physics.enable(this.tank);
+        this.layer = this.map.createLayer('Ground');
+        this.layer.resizeWorld();
+
+        this.map.setCollisionBetween(1, 10000);
+        this.layer.debug = true;
+
+        this.tank = this.gameState.add.sprite(coordX * 16, coordY * 16, 'tanks');
+        this.tank.smoothed = false;
+        this.gameState.physics.enable(this.tank);
         this.tank.body.collideWorldBounds = true;
         // enable physics for our player sprite so we could move it etc
-        this.game.physics.arcade.enable(this.tank);
+        this.gameState.physics.arcade.enable(this.tank);
+        this.tank.body.width = 15;
+        this.tank.body.height = 15;
         // set initial frame for our player sprite
         this.tank.frame = 0;
         // define movement animations for our player - up, down etc, provide sprite numbers, timing,
@@ -52,10 +58,15 @@ export class Level {
         this.tank.destroy(true);
     }
 
-    public update(cursors: Phaser.CursorKeys): void {
-        this.game.physics.arcade.collide(this.tank, this.layer);
+    public debug(): void {
+        this.gameState.game.debug.bodyInfo(this.tank, 32, 32);
+        this.gameState.game.debug.body(this.tank);
+    }
 
-        this.game.input.update();
+    public update(cursors: Phaser.CursorKeys): void {
+        this.gameState.physics.arcade.collide(this.tank, this.layer);
+
+        this.gameState.input.update();
         if (cursors.down.isDown) {
             this.moveDown();
         } else

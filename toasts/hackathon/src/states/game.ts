@@ -25,15 +25,19 @@ export class Game extends Phaser.State {
         this.levelCombiner = new LevelCombiner(this);
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        this.levelName = this.game.add.bitmapText(550, 450, 'font', this.levelCombiner.currentLevel().getLevelName(), 25);
+        this.levelName = this.game.add.bitmapText(550, 450, 'font', this.levelCombiner.currentLevel.getLevelName(), 25);
         this.deaths = this.game.add.bitmapText(550, 425, 'font', getDeathsText(), 25);
     }
 
     public update(): void {
         this.levelCombiner.update();
-        this.levelCombiner.currentLevel().update(this.cursors);
+        this.levelCombiner.currentLevel.update(this.cursors);
 
-        this.levelName.text = this.levelCombiner.currentLevel().getLevelName();
+        this.levelName.text = this.levelCombiner.currentLevel.getLevelName();
         this.deaths.text = getDeathsText();
+    }
+
+    public render(): void {
+        this.levelCombiner.debug();
     }
 }
