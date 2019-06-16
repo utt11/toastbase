@@ -8,12 +8,14 @@ import {Config} from '../config';
 const { defaultStartCoordX, defaultStartCoordY } = Config;
 
 export class Level {
-    protected levelName: string;
     private game: Game;
     private coordX: number;
     private coordY: number;
     private tank: Phaser.Sprite;
     private layer: Phaser.TilemapLayer;
+    private map: Phaser.Tilemap;
+    protected tilemap: string;
+    protected levelName: string;
 
     constructor(game: Game) {
         this.game = game;
@@ -23,12 +25,12 @@ export class Level {
         this.coordX = coordX;
         this.coordY = coordY;
 
-        const map = this.game.add.tilemap('tilemap');
-        map.addTilesetImage('battlecity', 'tiles16x16');
+        this.map = this.game.add.tilemap(this.tilemap);
+        this.map.addTilesetImage('battlecity', 'tiles16x16');
         // To enable collision between our tank and walls/city
         // we have to enable collision for tiles ( now we will just enable collision for all tiles of our tile set ).
-        map.setCollisionBetween(1, 10000);
-        const layer = map.createLayer('Ground');
+        this.map.setCollisionBetween(1, 10000);
+        const layer = this.map.createLayer('Ground');
         layer.resizeWorld();
 
         this.tank = this.game.add.sprite(coordX * 16, coordY * 16, 'tanks');
@@ -43,6 +45,11 @@ export class Level {
         this.tank.animations.add('right', [6, 7], 10, true);
         this.tank.animations.add('up', [0, 1], 10, true);
         this.tank.animations.add('down', [4, 5], 10, true);
+    }
+
+    public stop(): void {
+        this.map.destroy();
+        this.tank.destroy(true);
     }
 
     public update(cursors: Phaser.CursorKeys): void {
@@ -97,5 +104,9 @@ export class Level {
 
     public getLevelName(): string {
         return this.levelName;
+    }
+
+    public getTankPosition(): Phaser.Point {
+        return this.tank.position;
     }
 }

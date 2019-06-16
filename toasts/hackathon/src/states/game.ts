@@ -2,7 +2,6 @@ import 'pixi';
 import 'p2';
 import Phaser from 'phaser-ce';
 
-import {Sound} from '../helpers/sound';
 import {Mushroom} from '../prefabs/mushroom';
 import {LevelCombiner} from '../levels/levelCombiner';
 
@@ -31,14 +30,10 @@ export class Game extends Phaser.State {
     }
 
     public update(): void {
+        this.levelCombiner.update();
         this.levelCombiner.currentLevel().update(this.cursors);
 
         this.levelName.text = this.levelCombiner.currentLevel().getLevelName();
         this.deaths.text = getDeathsText();
-    }
-
-    public finish(): void {
-        this.game.state.start('ChooseName');
-        Sound.play();
     }
 }
