@@ -24,6 +24,11 @@ export class Game extends Phaser.State {
             this.mushroom.x = this.game.world.centerX;
             this.mushroom.y = this.game.world.centerY;
         }, this);
+
+        (window as any).finish = (deaths: number): void => {
+            (window as any).deaths = deaths;
+            this.game.state.start('ChooseName');
+        }
     }
 
     public update(): void {
