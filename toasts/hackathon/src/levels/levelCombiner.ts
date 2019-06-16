@@ -3,7 +3,7 @@ const _ = require('lodash');
 import {Sound} from '../helpers/sound';
 import {Level} from './level';
 import {SimpleLevel} from './simpleLevel/simpleLevel';
-import {Game} from '../states/game';
+import {GameState} from '../states/game';
 import {Config} from '../config';
 
 const { DIRECTIONS } = Config;
@@ -23,7 +23,7 @@ const dy = {
 
 export class LevelCombiner {
     private levels: (Level | null)[][];
-    private gameState: Game;
+    private gameState: GameState;
     private currentLevelX: number;
     private currentLevelY: number;
 
@@ -31,7 +31,7 @@ export class LevelCombiner {
     private winLevelY: number = 0;
     private winDirection: number = 1;
 
-    constructor(gameState: Game) {
+    constructor(gameState: GameState) {
         this.gameState = gameState;
 
         this.levels = [

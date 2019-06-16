@@ -18,6 +18,7 @@ export class Preload extends Phaser.State {
         this.game.load.image('records-button', 'assets/sprites/records-button.png');
         this.game.load.tilemap('simple-map', 'assets/tilemaps/simple-map.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles16x16', 'assets/tilemaps/battlecity_general.png');
+        this.game.load.spritesheet('tiles8x16', 'assets/tilemaps/battlecity_general.png', 8, 16);
         this.game.load.spritesheet('tanks', 'assets/tilemaps/battlecity_general.png', 16, 16);
 
         // Initialize Howler

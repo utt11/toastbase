@@ -7,7 +7,7 @@ import {LevelCombiner} from '../levels/levelCombiner';
 
 const getDeathsText = (): string => `${(window as any).deaths} deaths`;
 
-export class Game extends Phaser.State {
+export class GameState extends Phaser.State {
     private mushroom: Mushroom;
     private cursors: Phaser.CursorKeys;
     private text: Phaser.BitmapText;
@@ -24,6 +24,8 @@ export class Game extends Phaser.State {
 
         this.levelCombiner = new LevelCombiner(this);
         this.cursors = this.game.input.keyboard.createCursorKeys();
+
+        this.game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ])
 
         this.levelName = this.game.add.bitmapText(550, 450, 'font', this.levelCombiner.currentLevel.getLevelName(), 25);
         this.deaths = this.game.add.bitmapText(550, 425, 'font', getDeathsText(), 25);
