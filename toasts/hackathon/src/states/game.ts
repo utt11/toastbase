@@ -22,27 +22,12 @@ export class Game extends Phaser.State {
     }
 
     public update(): void {
-        this.game.input.update();
-
-        if (this.cursors.down.isDown) {
-            this.levelCombiner.currentLevel().moveDown();
-        } else
-        if (this.cursors.up.isDown) {
-            this.levelCombiner.currentLevel().moveUp();
-        } else
-        if (this.cursors.left.isDown) {
-            this.levelCombiner.currentLevel().moveLeft();
-        } else
-        if (this.cursors.right.isDown) {
-            this.levelCombiner.currentLevel().moveRight();
-        } else {
-            this.levelCombiner.currentLevel().moveStop();
-        }
+        this.levelCombiner.currentLevel().update(this.cursors);
     }
 
     public finish(deaths: number): void {
         (window as any).deaths = deaths;
         this.game.state.start('ChooseName');
         Sound.play();
-    };
+    }
 }

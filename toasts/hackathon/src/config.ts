@@ -5,8 +5,8 @@ export class Config {
 
     static tankSpeed: number = 66;
 
-    static defaultStartCoordX: number = 12;
-    static defaultStartCoordY: number = 13;
+    static defaultStartCoordX: number = 16;
+    static defaultStartCoordY: number = 17;
 
     static defaultStartLevelX: number = 2;
     static defaultStartLevelY: number = 2;
@@ -17,5 +17,5 @@ export class Config {
         RIGHT: 2,
         BOTTOM: 3,
         LEFT: 4
-    }
+    };
 }
