@@ -5,7 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "firebase": "^5.8.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-animated-text": "^0.1.3",
